@@ -1,0 +1,48 @@
+2. Write SQL queries to create a database having relationships between tables. Insert data given below also.
+
+Soln:
+-- Create the database
+-- CREATE DATABASE CompanyDB;
+
+-- Use the created database
+-- USE CompanyDB;
+
+-- Create the Department table
+CREATE TABLE Department (
+    Deptno INT,
+    dname VARCHAR(200),
+    loc VARCHAR(200),
+    CONSTRAINT DepartmentPK PRIMARY KEY(Deptno)
+);
+
+-- Create the Employee table with foreign key reference to Department table
+CREATE TABLE Employee (
+    Empno INT,
+    Ename VARCHAR(200),
+    job VARCHAR(200),
+    Deptno INT,
+    CONSTRAINT EmployeePK PRIMARY KEY(Empno),
+    CONSTRAINT EmployeeFK FOREIGN KEY (Deptno) REFERENCES Department(Deptno)
+);
+
+-- Insert sample data into the Department table
+INSERT INTO Department (Deptno, dname, loc) 
+VALUES
+(10, 'ACCOUNTING', 'NEW YORK'),
+(20, 'RESEARCH', 'DALLAS'),
+(30, 'SALES', 'CHICAGO');
+
+-- Insert sample data into the Employee table
+INSERT INTO Employee (Empno, Ename, job, Deptno) 
+VALUES
+(7369, 'SMITH', 'CLERK', 20),
+(7499, 'ALLEN', 'SALESMAN', 30),
+(7521, 'WARD' , 'SALESMAN', 30),
+(7566, 'JONES', 'MANAGER', 20),
+(7654, 'BLAKE', 'MANAGER', 30);
+............................................................................................................................................
+
+SELECT Employee.Empno, Employee.Ename, Employee.Deptno, Department.Dname
+FROM Employee
+JOIN Department
+ON Employee.Deptno = Department.Deptno;
